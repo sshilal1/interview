@@ -55,11 +55,11 @@ export default class EntryAdder extends React.Component {
 					</div><div>
 						<label style={style}>Last Name</label>
 						<input style={style} name="lastname" onChange={this.handleInputChange}></input>
-						<input style={{marginLeft: "20px"}} type="submit" value="Add Reservation" />
 					</div><div>
 						<label style={style}>Phone</label>
 						<input style={style} name="number" onChange={this.handleInputChange}></input>
 					</div>
+					<input style={{width:"260px"}} type="submit" value="Add Reservation" />
 				</form>
 			</div>
 		)

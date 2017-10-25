@@ -3,13 +3,13 @@ var app = express();
 var mongoClient = require('mongodb').MongoClient;
 var dbUrl = "mongodb://localhost:27017/mydb";
 
-app.use(express.static('public'));
+app.use(express.static('react-store-public'));
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.get('/', function(req,res) {
-	res.sendFile('reactindex.html', { root: __dirname})
+	res.sendFile('index.html', { root: __dirname})
 });
 
 app.post('/reservation', function (req,res) {
@@ -34,8 +34,7 @@ app.delete('/reservation/:id', function (req,res) {
 		if (err) throw err;
 	  db.collection("reservations").deleteOne(myobj, function(err, obj) {
 	    if (err) throw err;
-	    //console.log(obj.result.n + " reservations deleted");
-	    console.log(obj.result);
+	    console.log(obj.result.n + " reservations deleted");
 	    db.close();
 	  });
 	});

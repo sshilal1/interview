@@ -1,10 +1,10 @@
 module.exports = {
 	entry : {
-		app : "./app.js",
-		reactstoreapp : "./react-store-app.js"
+		'public/' : "./app.js",
+		'react-store-public/' : "./react-store-app.js"
 	},
 	output : {
-		filename : "./public/[name]bundle.js"
+		filename : "[name]bundle.js"
 	},
 	module: {
 	  rules: [
