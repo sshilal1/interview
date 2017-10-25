@@ -25,11 +25,13 @@ class ReservationList extends React.Component {
 		var reservations = this.state.reservations;
 		reservations.push(reservation);
 
+		console.log(reservations);
+
 		this.setState({
 			reservations : reservations
 		})
 
-		axios.post('/reservation', {
+		/*axios.post('/reservation', {
 			firstname: reservation.firstname,
 			lastname: reservation.lastname,
 			number: reservation.number,
@@ -40,14 +42,13 @@ class ReservationList extends React.Component {
 		})
 		.catch(function (error) {
 			console.log(error);
-		});
+		});*/
 	}
 
 	removeReservation(res) {
-		console.log("removesres", res);
 		var reservations = this.state.reservations;
 		
-		var index = _.findIndex(reservations, function(o) { return o.id = res.id; });
+		var index = _.findIndex(reservations, function(o) { return o.id == res.id; });
 		var uri = '/reservation/' + reservations[index].id;
 
 		reservations.splice(index,1);
@@ -56,20 +57,20 @@ class ReservationList extends React.Component {
 			reservations : reservations
 		})
 
-		axios.delete(uri)
+		/*axios.delete(uri)
 		.then(function (response) {
 			console.log(response);
 		})
 		.catch(function (error) {
 			console.log(error);
-		});
+		});*/
 	}
 
 	render() {
 
 		const {reservations} = this.state;
 
-		const ReservationEntries = reservations.map((reservation, index) => {
+		const ReservationEntries = reservations.map((reservation) => {
 			return <ReservationEntry key={reservation.id} id={reservation.id} remove={this.removeReservation} firstname={reservation.firstname} lastname={reservation.lastname} number={reservation.number}/>
 		})
 

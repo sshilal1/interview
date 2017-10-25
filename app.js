@@ -29,8 +29,9 @@ class ReservationList extends React.Component {
 			id: reservation.id
 		})
 		.then( (response) => {
+			console.log(response);
 			this.setState({
-				reservations : response.reservations
+				reservations : response.data
 			})
 		})
 		.catch(function (error) {
@@ -39,21 +40,17 @@ class ReservationList extends React.Component {
 	}
 
 	removeReservation(res) {
-		console.log("removesres", res);
 		var reservations = this.state.reservations;
 		
-		var index = _.findIndex(reservations, function(o) { return o.id = res.id; });
+		var index = _.findIndex(reservations, function(o) { return o.id == res.id; });
 		var uri = '/reservation/' + reservations[index].id;
 
-		reservations.splice(index,1);
-
-		this.setState({
-			reservations : reservations
-		})
-
 		axios.delete(uri)
-		.then(function (response) {
+		.then( (response) => {
 			console.log(response);
+			this.setState({
+				reservations : response.data
+			})
 		})
 		.catch(function (error) {
 			console.log(error);

@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-var ID = function () {
-  return '_' + Math.random().toString(36).substr(2, 9);
-};
+import shortid from 'shortid';
 
 export default class EntryAdder extends React.Component {
 
@@ -12,7 +9,8 @@ export default class EntryAdder extends React.Component {
     this.state = {
 			firstname : '',
 			lastname : '',
-			number : ''
+			number : '',
+			id : 0
 		}
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,14 +26,14 @@ export default class EntryAdder extends React.Component {
 	}
 
 	handleSubmit(event) {
-		var state = this.state;
+		var newId = shortid.generate();
+		var entry = Object.assign({}, this.state, {id : newId});
 
-		state.id = ID();
-
-    console.log(state);
+    console.log(entry);
     event.preventDefault();
 
-    this.props.onAdd(state);
+    this.props.onAdd(entry);
+    console.log(this);
   }
 
 	render() {

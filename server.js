@@ -3,44 +3,60 @@ var app = express();
 var mongoClient = require('mongodb').MongoClient;
 var dbUrl = "mongodb://localhost:27017/mydb";
 
-class Api {
-	getObjets () {
-		return new Promise((resolve,reject) => {
-			mongoClient.connect(dbUrl, function(err, db) {
-			  if (err) throw err;
-			  var mycollection = db.collection("reservations").find();
-			  var myObjs = [];
-			  mycollection.each(function(err, item) {
-			  	if (item==null) {
-			  		db.close();
-			  		resolve(myObjs);
-			  	}
-			  	else {
-			  		myObjs.push(item);
-			  	}
-			  })
-			});
-		})
-	}
-}
-
 var getDbObjects = function() {
-	mongoClient.connect(dbUrl, function(err, db) {
-	  if (err) throw err;
-	  var mycollection = db.collection("reservations").find();
-	  var myObjs = [];
-	  mycollection.each(function(err, item) {
-	  	if (item==null) {
-	  		db.close();
-	  		console.log(myObjs);
-	  		return myObjs;
-	  	}
-	  	myObjs.push(item);
-	  })
-	});
+	return new Promise((resolve,reject) => {
+		mongoClient.connect(dbUrl, function(err, db) {
+		  if (err) reject(err);
+		  var mycollection = db.collection("reservations").find();
+		  var myObjs = [];
+		  mycollection.each(function(err, item) {
+		  	if (item==null) {
+		  		db.close();
+		  		resolve(myObjs);
+		  	}
+		  	else {
+		  		myObjs.push(item);
+		  	}
+		  })
+		})
+	})
 }
 
-var dropDb = function() {
+var addReservation = function(reservation) {
+	return new Promise((resolve,reject) => {
+		mongoClient.connect(dbUrl, function(err, db) {
+		  if (err) reject(err);
+		  db.collection("reservations").insertOne(reservation, function(err, res) {
+		    if (err) reject(err);
+		    console.log('successfully added reservation!');
+		    //resolve('successfully added reservation!');
+		    getDbObjects()
+				.then((data) => {
+					resolve(data);
+				})
+		  });
+		});
+	})
+}
+
+var removeReservation = function(reservation) {
+	return new Promise((resolve,reject) => {
+		mongoClient.connect(dbUrl, function(err, db) {
+			if (err) throw err;
+		  db.collection("reservations").deleteOne(reservation, function(err, obj) {
+		    if (err) throw err;
+		    console.log(obj.result.n + " reservations deleted");
+		    //resolve(obj.result.n + " reservations deleted");
+		    getDbObjects()
+				.then((data) => {
+					resolve(data);
+				})
+		  });
+		});
+	})
+}
+
+var dropCollection = function() {
 	mongoClient.connect(dbUrl, function(err, db) {
 	  if (err) throw err;
 	  db.collection("reservations").drop(function(err, delOK) {
@@ -63,43 +79,21 @@ app.get('/', function(req,res) {
 app.post('/reservation', function (req,res) {
 	var myobj = req.body;
 	console.log("Attempting to add reservation for", myobj);
-
-	var dbObjs = getDbObjects();
-	console.log(dbObjs);
-
-	mongoClient.connect(dbUrl, function(err, db) {
-	  if (err) throw err;
-	  db.collection("reservations").insertOne(myobj, function(err, res) {
-	    if (err) throw err;
-	    console.log("reservation added!");
-	    db.close();
-	  });
-	});
+	addReservation(myobj)
+	.then(function(result) {
+		res.send(result);
+	})
 })
 
 app.delete('/reservation/:id', function (req,res) {
 	var myobj = { id : req.params.id };
 	console.log("Attempting to remove reservation for", myobj);
-
-	mongoClient.connect(dbUrl, function(err, db) {
-		if (err) throw err;
-	  db.collection("reservations").deleteOne(myobj, function(err, obj) {
-	    if (err) throw err;
-	    //console.log(obj.result.n + " reservations deleted");
-	    console.log(obj.result);
-	    db.close();
-	  });
-	});
+	removeReservation(myobj)
+	.then(function(result) {
+		res.send(result);
+	})
 })
 
 app.listen(4000, function() {
-	console.log("listening on port 3000");
+	console.log("listening on port 4000");
 })
-
-async function getStuff () {
-  const api = new Api()
-  const objs = await api.getObjets()
-  console.log(objs);
-}
-
-getStuff();
