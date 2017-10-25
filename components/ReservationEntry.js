@@ -11,7 +11,6 @@ export default class ReservationEntry extends React.Component {
 
 	handleRemove() {
 		var res = this.props;
-		console.log("handleremove", res);
 		this.props.remove(res);
 	}
 
