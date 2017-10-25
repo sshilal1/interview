@@ -31,19 +31,6 @@ class ReservationList extends React.Component {
 		this.setState({
 			reservations : reservations
 		})
-
-		/*axios.post('/reservation', {
-			firstname: reservation.firstname,
-			lastname: reservation.lastname,
-			number: reservation.number,
-			id: reservation.id
-		})
-		.then(function (response) {
-			console.log(response);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});*/
 	}
 
 	editReservation(res) {
@@ -57,22 +44,6 @@ class ReservationList extends React.Component {
 		this.setState({
 			reservations : reservations
 		})
-
-		/*axios.put('/reservation', {
-			firstname: reservation.firstname,
-			lastname: reservation.lastname,
-			number: reservation.number,
-			id: reservation.id
-		})
-		.then( (response) => {
-			console.log(response);
-			this.setState({
-				reservations : response.data
-			})
-		})
-		.catch(function (error) {
-			console.log(error);
-		});*/
 	}
 
 	removeReservation(res) {
@@ -86,14 +57,6 @@ class ReservationList extends React.Component {
 		this.setState({
 			reservations : reservations
 		})
-
-		/*axios.delete(uri)
-		.then(function (response) {
-			console.log(response);
-		})
-		.catch(function (error) {
-			console.log(error);
-		});*/
 	}
 
 	render() {

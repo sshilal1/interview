@@ -52,8 +52,10 @@ export default class ReservationEntry extends React.Component {
 	render() {
 
 		var style = {
-			display: "inline-block",
-			padding: "10px"
+			padding: "10px",
+			margin: "5px",
+			width: "100px",
+			display: "inline-block"
 		}
 
 		var {edit,firstname,lastname,number} = this.state;
@@ -64,7 +66,7 @@ export default class ReservationEntry extends React.Component {
 					<input name="firstname" style={style} onChange={this.handleInputChange} value={firstname}></input>
 					<input name="lastname" style={style} onChange={this.handleInputChange} value={lastname}></input>
 					<input name="number" style={style} onChange={this.handleInputChange} value={number}></input>
-					<button onClick={this.handleSubmitEdit}>Ok</button>
+					<button style={style} onClick={this.handleSubmitEdit}>Ok</button>
 				</li>
 			)
 		}
@@ -75,8 +77,8 @@ export default class ReservationEntry extends React.Component {
 					<div style={style}>{this.state.firstname}</div>
 					<div style={style}>{this.state.lastname}</div>
 					<div style={style}>{this.state.number}</div>
-					<button onClick={this.handleRemove}>X</button>
-					<button onClick={this.handleEdit}>Edit</button>
+					<button style={style} onClick={this.handleRemove}>X</button>
+					<button style={style} onClick={this.handleEdit}>Edit</button>
 				</li>
 			)
 		}
