@@ -22,21 +22,16 @@ class ReservationList extends React.Component {
 	}
 
 	addReservation(reservation) {
-		var reservations = this.state.reservations;
-		reservations.push(reservation);
-
-		this.setState({
-			reservations : reservations
-		})
-
 		axios.post('/reservation', {
 			firstname: reservation.firstname,
 			lastname: reservation.lastname,
 			number: reservation.number,
 			id: reservation.id
 		})
-		.then(function (response) {
-			console.log(response);
+		.then( (response) => {
+			this.setState({
+				reservations : response.reservations
+			})
 		})
 		.catch(function (error) {
 			console.log(error);
