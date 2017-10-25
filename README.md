@@ -21,7 +21,7 @@ node react-store-server.js
 2. Visit localhost:3000 in your browser to see it in action!
 
 
-## To run the second project, we assume the user has MongoDB installed on their system.
+## To run the second project, we assume [MongoDB](https://www.mongodb.com/) installed.
 1. Open a console and run `mongod`
 
 2. If you havent run the first application yet, open another console and run
@@ -35,4 +35,4 @@ webpack
 ```
 node server.js
 ```
-4. Visit localhost:4000 in your browser to see it again
+4. Visit localhost:4000 in your browser to see it live as well!
