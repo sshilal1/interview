@@ -39,6 +39,24 @@ class ReservationList extends React.Component {
 		});
 	}
 
+	editReservation(reservation) {
+		axios.put('/reservation', {
+			firstname: reservation.firstname,
+			lastname: reservation.lastname,
+			number: reservation.number,
+			id: reservation.id
+		})
+		.then( (response) => {
+			console.log(response);
+			this.setState({
+				reservations : response.data
+			})
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
+
 	removeReservation(res) {
 		var reservations = this.state.reservations;
 		
@@ -62,7 +80,7 @@ class ReservationList extends React.Component {
 		const {reservations} = this.state;
 
 		const ReservationEntries = reservations.map((reservation, index) => {
-			return <ReservationEntry key={reservation.id} id={reservation.id} remove={this.removeReservation} firstname={reservation.firstname} lastname={reservation.lastname} number={reservation.number}/>
+			return <ReservationEntry key={reservation.id} id={reservation.id} edit={this.editReservation} remove={this.removeReservation} firstname={reservation.firstname} lastname={reservation.lastname} number={reservation.number}/>
 		})
 
 		return (

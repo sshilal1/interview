@@ -42,11 +42,28 @@ var addReservation = function(reservation) {
 var removeReservation = function(reservation) {
 	return new Promise((resolve,reject) => {
 		mongoClient.connect(dbUrl, function(err, db) {
-			if (err) throw err;
+			if (err) reject(err);
 		  db.collection("reservations").deleteOne(reservation, function(err, obj) {
-		    if (err) throw err;
+		    if (err) reject(err);
 		    console.log(obj.result.n + " reservations deleted");
 		    //resolve(obj.result.n + " reservations deleted");
+		    getDbObjects()
+				.then((data) => {
+					resolve(data);
+				})
+		  });
+		});
+	})
+}
+
+var updateReservation = function(reservation) {
+	return new Promise((resolve,reject) => {
+		mongoClient.connect(dbUrl, function(err, db) {
+			var myquery = { id : reservation.id };
+			if (err) reject(err);
+		  db.collection("reservations").updateOne(myquery, reservation, function(err, obj) {
+		    if (err) reject(err);
+		    console.log("reservation updated!");
 		    getDbObjects()
 				.then((data) => {
 					resolve(data);
@@ -80,6 +97,15 @@ app.post('/reservation', function (req,res) {
 	var myobj = req.body;
 	console.log("Attempting to add reservation for", myobj);
 	addReservation(myobj)
+	.then(function(result) {
+		res.send(result);
+	})
+})
+
+app.put('/reservation', function (req,res) {
+	var myobj = req.body;
+	console.log("Attempting to update reservation for", myobj);
+	updateReservation(myobj)
 	.then(function(result) {
 		res.send(result);
 	})

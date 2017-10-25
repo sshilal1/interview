@@ -19,6 +19,7 @@ class ReservationList extends React.Component {
 		}
 		this.addReservation = this.addReservation.bind(this);
 		this.removeReservation = this.removeReservation.bind(this);
+		this.editReservation = this.editReservation.bind(this);
 	}
 
 	addReservation(reservation) {
@@ -39,6 +40,35 @@ class ReservationList extends React.Component {
 		})
 		.then(function (response) {
 			console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});*/
+	}
+
+	editReservation(res) {
+		var reservations = this.state.reservations;
+		
+		var index = _.findIndex(reservations, function(o) { return o.id == res.id; });
+		var uri = '/reservation/' + reservations[index].id;
+
+		reservations[index] = res;
+
+		this.setState({
+			reservations : reservations
+		})
+
+		/*axios.put('/reservation', {
+			firstname: reservation.firstname,
+			lastname: reservation.lastname,
+			number: reservation.number,
+			id: reservation.id
+		})
+		.then( (response) => {
+			console.log(response);
+			this.setState({
+				reservations : response.data
+			})
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -71,7 +101,7 @@ class ReservationList extends React.Component {
 		const {reservations} = this.state;
 
 		const ReservationEntries = reservations.map((reservation) => {
-			return <ReservationEntry key={reservation.id} id={reservation.id} remove={this.removeReservation} firstname={reservation.firstname} lastname={reservation.lastname} number={reservation.number}/>
+			return <ReservationEntry key={reservation.id} id={reservation.id} edit={this.editReservation} remove={this.removeReservation} firstname={reservation.firstname} lastname={reservation.lastname} number={reservation.number}/>
 		})
 
 		return (
