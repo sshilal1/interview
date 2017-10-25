@@ -12,8 +12,8 @@ This is a sample application demonstrating the use of React, Node, and RESTful s
 ## To run the first project:
 1. Open a console and run the following
 ```
-git clone https://github.com/sshilal1/interview.git
-cd interview
+git clone https://github.com/sshilal1/restaurantlist.git
+cd restaurantlist
 npm install
 webpack
 node react-store-server.js
@@ -26,8 +26,8 @@ node react-store-server.js
 
 2. If you havent run the first application yet, open another console and run
 ```
-git clone https://github.com/sshilal1/interview.git
-cd interview
+git clone https://github.com/sshilal1/restaurantlist.git
+cd restaurantlist
 npm install
 webpack
 ```
