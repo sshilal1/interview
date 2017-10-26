@@ -25,7 +25,7 @@ node react-store-server.js
 ## To run the second application, we assume [MongoDB](https://www.mongodb.com/) installed.
 1. Open a console and run `mongod`
 
-2. If you havent run the first application yet, open another console and run
+2. If you havent run the first application yet, open **another** console and run
 ```
 git clone https://github.com/sshilal1/restaurantlist.git
 cd restaurantlist
