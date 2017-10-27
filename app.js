@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -94,6 +95,8 @@ class ReservationList extends React.Component {
 
 
 ReactDOM.render(
-	<ReservationList/>,
+	<MuiThemeProvider>
+		<ReservationList/>
+	</MuiThemeProvider>,
 	document.getElementById('root')
 );

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import shortid from 'shortid';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 export default class EntryAdder extends React.Component {
 
@@ -49,15 +51,15 @@ export default class EntryAdder extends React.Component {
 				<form onSubmit={this.handleSubmit}>
 					<div>
 						<label style={style}>First Name</label>
-						<input style={style} name="firstname" onChange={this.handleInputChange}></input>
+						<TextField style={style} name="firstname" onChange={this.handleInputChange}/>
 					</div><div>
 						<label style={style}>Last Name</label>
-						<input style={style} name="lastname" onChange={this.handleInputChange}></input>
+						<TextField style={style} name="lastname" onChange={this.handleInputChange}/>
 					</div><div>
 						<label style={style}>Phone</label>
-						<input style={style} name="number" onChange={this.handleInputChange}></input>
+						<TextField style={style} name="number" onChange={this.handleInputChange}/>
 					</div>
-					<input style={{width:"260px"}} type="submit" value="Add Reservation" />
+					<RaisedButton style={{width:"260px"}} type="submit" label="Add Reservation" />
 				</form>
 			</div>
 		)

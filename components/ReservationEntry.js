@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class ReservationEntry extends React.Component {
 
@@ -66,7 +67,7 @@ export default class ReservationEntry extends React.Component {
 					<input name="firstname" style={style} onChange={this.handleInputChange} value={firstname}></input>
 					<input name="lastname" style={style} onChange={this.handleInputChange} value={lastname}></input>
 					<input name="number" style={style} onChange={this.handleInputChange} value={number}></input>
-					<button style={style} onClick={this.handleSubmitEdit}>Ok</button>
+					<RaisedButton onClick={this.handleSubmitEdit}>Ok</RaisedButton>
 				</li>
 			)
 		}
@@ -77,8 +78,8 @@ export default class ReservationEntry extends React.Component {
 					<div style={style}>{this.state.firstname}</div>
 					<div style={style}>{this.state.lastname}</div>
 					<div style={style}>{this.state.number}</div>
-					<button style={style} onClick={this.handleRemove}>X</button>
-					<button style={style} onClick={this.handleEdit}>Edit</button>
+					<RaisedButton onClick={this.handleRemove}>Delete</RaisedButton>
+					<RaisedButton onClick={this.handleEdit}>Edit</RaisedButton>
 				</li>
 			)
 		}
